@@ -9,6 +9,7 @@ Book Tracker is a small, dependency-free web app for recording books you want to
 - Display newest books first.
 - Search titles and authors with case-insensitive partial matching.
 - Change reading status between `To read`, `Reading`, and `Finished`, with changes saved in browser `localStorage`.
+- Delete a book after confirmation.
 - View a Reading Dashboard with total books, counts by status, completion percentage, and a progress bar.
 - Filter books by reading status.
 - Sort books by newest first, title A–Z, or author A–Z.

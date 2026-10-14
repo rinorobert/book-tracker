@@ -259,6 +259,29 @@ button:hover {
   font-weight: 700;
 }
 
+.book-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.delete-button {
+  padding: 0.45rem 0.65rem;
+  background: #b42318;
+  font-size: 0.8rem;
+}
+
+.delete-button:hover {
+  background: #912018;
+}
+
+.delete-button:focus-visible {
+  outline: 3px solid #fecdca;
+  outline-offset: 2px;
+}
+
 .empty-state {
   margin: 0;
   padding: 1.25rem;

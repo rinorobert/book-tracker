@@ -75,3 +75,11 @@ No user-reported manual browser test results are recorded in this conversation. 
 **Purpose:** Add composable controls for narrowing and ordering the displayed book list without changing stored collection order.
 
 **Outcome:** Status filter and sort controls were implemented as display-only controls, preserving the stored collection order for Newest first. `node --check app.js` and `git diff --check` were run without errors. Browser testing has not been reported.
+
+## 9. Delete a book
+
+**Actual prompt text:** “Now implement the remaining optional feature: **delete a book**.” The prompt required an accessible Delete button on each book card, confirmation before mutation, exact-object deletion from the existing collection, immediate localStorage, list, and dashboard updates, compatibility with active search/filter/sort controls, final-book empty state behavior, and preservation of all existing features.
+
+**Purpose:** Add a safe, confirmed way to remove an individual book from the collection.
+
+**Outcome:** Each book card now includes a confirmed Delete button that removes the exact corresponding object, saves the updated collection, and re-renders the list and dashboard. `node --check app.js` and `git diff --check` were run without errors. Browser testing has not been reported.

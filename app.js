@@ -139,6 +139,8 @@ function renderBooks() {
     const title = document.createElement('h3');
     const author = document.createElement('p');
     const status = document.createElement('select');
+    const actions = document.createElement('div');
+    const deleteButton = document.createElement('button');
 
     title.textContent = book.title;
     author.textContent = `by ${book.author}`;
@@ -159,8 +161,25 @@ function renderBooks() {
       renderBooks();
     });
 
+    deleteButton.type = 'button';
+    deleteButton.className = 'delete-button';
+    deleteButton.textContent = 'Delete';
+    deleteButton.setAttribute('aria-label', `Delete ${book.title}`);
+    deleteButton.addEventListener('click', () => {
+      const bookIndex = books.indexOf(book);
+
+      if (bookIndex === -1 || !window.confirm(`Delete "${book.title}"?`)) {
+        return;
+      }
+
+      books.splice(bookIndex, 1);
+      saveBooks();
+      renderBooks();
+    });
+
     details.append(title, author);
-    card.append(details, status);
+    actions.append(status, deleteButton);
+    card.append(details, actions);
     bookList.append(card);
   });
 }
