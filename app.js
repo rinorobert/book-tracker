@@ -7,6 +7,7 @@ const authorInput = document.querySelector('#author');
 const statusInput = document.querySelector('#status');
 const titleError = document.querySelector('#title-error');
 const authorError = document.querySelector('#author-error');
+const searchInput = document.querySelector('#search');
 const bookList = document.querySelector('#book-list');
 
 function loadBooks() {
@@ -56,9 +57,22 @@ function renderBooks() {
     return;
   }
 
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const visibleBooks = books.filter((book) => {
+    return (
+      book.title.toLowerCase().includes(searchTerm) ||
+      book.author.toLowerCase().includes(searchTerm)
+    );
+  });
+
   bookList.innerHTML = '';
 
-  books.forEach((book) => {
+  if (visibleBooks.length === 0) {
+    bookList.innerHTML = '<p class="empty-state">No books match your search.</p>';
+    return;
+  }
+
+  visibleBooks.forEach((book) => {
     const card = document.createElement('article');
     card.className = 'book-card';
 
@@ -102,5 +116,6 @@ bookForm.addEventListener('submit', (event) => {
 
 titleInput.addEventListener('input', () => validateRequiredField(titleInput, titleError, 'Title'));
 authorInput.addEventListener('input', () => validateRequiredField(authorInput, authorError, 'Author'));
+searchInput.addEventListener('input', renderBooks);
 
 renderBooks();
