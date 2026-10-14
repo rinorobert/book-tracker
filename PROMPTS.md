@@ -1,51 +1,61 @@
 # AI Prompt Record — Book Tracker
 
-This file records the important prompts used during development of the Book Tracker assessment. It reflects the conversation and observed work only; it does not claim unreported tests or invent issues.
+This log records the important user prompts used during development, their purpose, and the observed outcome. The prompt text below is taken from the actual development conversation; no prompts, test results, bugs, or fixes have been invented.
 
-## 1. Initial planning prompt
+## 1. Initial planning
 
-### What was asked
+**Actual prompt text:** “I want to build a Book Tracker web app for an internship recruitment assessment.” The prompt requested a plain HTML, CSS, and JavaScript app using browser `localStorage`, with book creation, newest-first display, title/author search, status changes, and persistence. It asked for an implementation approach, recommended files, a `localStorage` explanation, and a step-by-step plan before any files were changed.
 
-The user asked for a plan to build a Book Tracker web app for an internship recruitment assessment using plain HTML, CSS, and JavaScript with browser `localStorage`. The requested features were adding books with a title, author, and status; newest-first display; title/author search; status changes; and persistence after refresh. The user asked for the implementation approach, recommended files, an explanation of `localStorage`, and a staged implementation/testing plan before any files were changed.
+**Purpose:** Establish the proposed architecture and workflow before implementation.
 
-### What happened
+**Outcome:** A dependency-free static-site approach was proposed, with staged implementation and GitHub Pages compatibility. No files were changed.
 
-The response proposed a dependency-free, single-page static site suitable for GitHub Pages. It recommended separate HTML, CSS, and JavaScript files and described storing the book array as JSON in `localStorage`, loading it on page start, and saving after changes. It also outlined a staged implementation and manual testing approach. No files were created or modified.
+## 2. Corrective planning request
 
-## 2. Corrective planning prompt
+**Actual prompt text:** “Your plan is generally suitable, but revise it to follow the recruitment assessment instructions exactly.” The prompt required the filenames `index.html`, `style.css`, `app.js`, `PROMPTS.md`, and `README.md`; required an accurate prompt log; required incremental feature work with review/testing before each next feature; and required no files to be changed at that time.
 
-### What was asked
+**Purpose:** Align the initial plan with the assessment's naming and workflow requirements.
 
-The user asked for the plan to be revised to exactly match the assessment workflow. They required the filenames `index.html`, `style.css`, `app.js`, `PROMPTS.md`, and `README.md`; required an accurate prompt log including a genuine AI mistake and verified fix; required a feature-by-feature implementation, review, test, commit, and push sequence; and required waiting for approval before making changes.
+**Outcome:** The plan was revised to use the required filenames, include `PROMPTS.md`, and follow the requested incremental sequence. No files were changed.
 
-### What happened
+## 3. Feature 1 — add and display books
 
-The response revised the plan to use the required filenames and to treat `PROMPTS.md` as an assessment deliverable. It also described the required feature order and confirmed that the application would remain compatible with GitHub Pages as a plain static site. No files were created or modified at this planning stage.
+**Actual prompt text:** “Your revised plan is approved. Implement Feature 1 only: add a book and display the list.” The prompt required only `index.html`, `style.css`, and `app.js`; Title, Author, and Status fields; `To read` as the default status; trimmed required-field validation; newest-first in-memory display; form clearing after success; and no persistence, search, status editing, documentation, commit, or push.
 
-## 3. Feature 1 implementation prompt
+**Purpose:** Build the initial add-book interface and validated in-memory list.
 
-### What was asked
+**Outcome:** The three application files were created. Valid books were added with `unshift()` and displayed at the top; Title and Author were trimmed and validated. `node --check app.js` and `git diff --check` were run. No browser test result was claimed.
 
-The user approved the plan and asked to implement only Feature 1. The requirements were to create only `index.html`, `style.css`, and `app.js`; provide Title, Author, and Status fields; default Status to `To read`; validate trimmed Title and Author values; show field-specific messages beneath invalid fields; add valid books to the top of an in-memory list; clear the form after success; and keep the site suitable for GitHub Pages. The user explicitly prohibited persistence, search, status-changing controls, deletion, counts, `README.md`, `PROMPTS.md`, commits, and pushes.
+## 4. Feature 2 — localStorage persistence
 
-### What happened
+**Actual prompt text:** “Implement the next feature in my Book Tracker: persist the book list using browser localStorage.” The prompt required loading saved books on page open, saving the complete list whenever a new book is added, retaining the existing behavior, safely handling missing or invalid saved JSON, and using a clear key such as `book-tracker-books`. It prohibited search, status editing, deletion, counts, commits, and pushes.
 
-`index.html`, `style.css`, and `app.js` were created. The page includes the requested form and an initially empty book list. The JavaScript trims and validates Title and Author, displays a relevant error beneath each invalid field, adds valid entries to an in-memory array with newest books first, renders the list, and resets the form after a successful add. The status is displayed as the chosen initial status only; it cannot be changed after adding a book. No persistence, search, deletion, counts, documentation, commit, or push was added.
+**Purpose:** Preserve the book list across page refreshes without adding unrelated features.
 
-Two non-browser checks were run: `node --check app.js` and `git diff --check`. They completed without errors.
+**Outcome:** `app.js` gained `loadBooks()` and `saveBooks()` using the `book-tracker-books` key. It loaded valid saved arrays, fell back to an empty list for missing or invalid JSON, and saved after new books were added. `node --check app.js` and `git diff --check` were run. No browser persistence test was claimed.
 
-## Genuine planning mistake and correction
+## 5. Feature 3 — search
 
-### Mistake
+**Actual prompt text:** “Implement Feature 3 only: add search to my existing Book Tracker.” The prompt required a search box above the list, live case-insensitive partial matching of title and author, restoring the complete list when cleared, preserving localStorage data without modification, and retaining existing functionality. It prohibited status editing, deletion, counts, commits, and pushes.
 
-The initial planning response recommended `styles.css` and `script.js` instead of the assessment-required filenames `style.css` and `app.js`. It also omitted `PROMPTS.md` from the recommended deliverables.
+**Purpose:** Add a non-destructive, case-insensitive filter for the displayed list.
 
-### Detection and verified correction
+**Outcome:** A search box was added above the list. The rendering logic filters the visible list by lowercase title or author without changing the `books` array or stored data. It displays a no-results message when appropriate. `node --check app.js` and `git diff --check` were run. No browser interaction test was claimed.
 
-The user detected the discrepancy while reviewing the initial plan and supplied a corrective planning prompt. The revised plan explicitly used `index.html`, `style.css`, `app.js`, `PROMPTS.md`, and `README.md`, and it included the prompt log as an important assessment deliverable. The subsequent Feature 1 implementation created `style.css` and `app.js`, confirming that the corrected filenames were followed.
+## 6. Feature 4 — status changes
+
+**Actual prompt text:** “Implement Feature 4 only: allow users to change a book's status in my existing Book Tracker.” The prompt required a control per displayed book with exactly `To read`, `Reading`, and `Finished`; immediate array and localStorage updates; preservation of the active search query; persistence after refresh; and no unrelated features, commits, or pushes.
+
+**Purpose:** Allow each saved book's reading status to be changed and persisted.
+
+**Outcome:** Each book now has a status selector. Its change handler updates the corresponding in-memory book object, saves the complete array, and re-renders using the active search query. `node --check app.js` and `git diff --check` were run. No browser refresh test was claimed.
+
+## Genuine AI planning mistake and correction
+
+The initial planning response proposed `styles.css` and `script.js` instead of the required `style.css` and `app.js`, and it omitted `PROMPTS.md`. The user identified this discrepancy during plan review and supplied the corrective planning request above. The revised plan used the required filenames and included the prompt log; Feature 1 subsequently created `style.css` and `app.js`.
 
 This was a planning/documentation mistake, not an application runtime bug.
 
-## Reported manual test results for Feature 1
+## Reported manual test results
 
-No manual browser test results have been reported by the user yet. The suggested manual tests have not been recorded as passed or failed, and no code bug or code fix has been claimed for Feature 1.
+No user-reported manual browser test results are recorded in this conversation. The static checks listed above do not establish browser behavior.
