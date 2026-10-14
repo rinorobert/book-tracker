@@ -47,6 +47,50 @@
         </form>
       </section>
 
+      <section class="dashboard" aria-labelledby="dashboard-heading">
+        <div class="section-heading">
+          <h2 id="dashboard-heading">Reading dashboard</h2>
+          <p>Your collection at a glance.</p>
+        </div>
+
+        <div class="stat-grid">
+          <article class="stat-card">
+            <p>Total books</p>
+            <strong id="total-books">0</strong>
+          </article>
+          <article class="stat-card">
+            <p>To read</p>
+            <strong id="to-read-books">0</strong>
+          </article>
+          <article class="stat-card">
+            <p>Reading</p>
+            <strong id="reading-books">0</strong>
+          </article>
+          <article class="stat-card">
+            <p>Finished</p>
+            <strong id="finished-books">0</strong>
+          </article>
+        </div>
+
+        <div class="completion-card">
+          <div class="completion-heading">
+            <span>Reading completion</span>
+            <strong id="completion-percentage">0%</strong>
+          </div>
+          <div
+            id="completion-progress"
+            class="progress-track"
+            role="progressbar"
+            aria-label="Reading completion"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <span id="completion-progress-fill" class="progress-fill"></span>
+          </div>
+        </div>
+      </section>
+
       <section class="panel" aria-labelledby="book-list-heading">
         <div class="section-heading">
           <h2 id="book-list-heading">Your books</h2>

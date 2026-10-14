@@ -59,3 +59,11 @@ This was a planning/documentation mistake, not an application runtime bug.
 ## Reported manual test results
 
 No user-reported manual browser test results are recorded in this conversation. The static checks listed above do not establish browser behavior.
+
+## 7. Reading Dashboard
+
+**Actual prompt text:** “We have completed and pushed the required Book Tracker features to GitHub. The working tree is clean. Now I want to add one polished feature incrementally: a **Reading Dashboard**.” The prompt required four whole-collection counts, a rounded finished-books completion percentage and progress bar, immediate updates after loading, adding, and status changes, unchanged statistics during search, responsive styling, and no unrelated features. It also required preserving existing behavior, appending this prompt record, static checks, a diff review, and no automatic commit, push, or deployment.
+
+**Purpose:** Add a compact, derived dashboard above the book list without changing the stored book data or existing tracker features.
+
+**Outcome:** The dashboard was implemented from the in-memory collection; its displayed counts and completion value are not stored in `localStorage`. `node --check app.js` and `git diff --check` were run without errors. Browser testing has not been reported.

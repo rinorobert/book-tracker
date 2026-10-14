@@ -10,6 +10,13 @@ const titleError = document.querySelector('#title-error');
 const authorError = document.querySelector('#author-error');
 const searchInput = document.querySelector('#search');
 const bookList = document.querySelector('#book-list');
+const totalBooks = document.querySelector('#total-books');
+const toReadBooks = document.querySelector('#to-read-books');
+const readingBooks = document.querySelector('#reading-books');
+const finishedBooks = document.querySelector('#finished-books');
+const completionPercentage = document.querySelector('#completion-percentage');
+const completionProgress = document.querySelector('#completion-progress');
+const completionProgressFill = document.querySelector('#completion-progress-fill');
 
 function loadBooks() {
   try {
@@ -63,7 +70,25 @@ function validateRequiredField(input, errorElement, label) {
   return value;
 }
 
+function renderDashboard() {
+  const total = books.length;
+  const toRead = books.filter((book) => book.status === 'To read').length;
+  const reading = books.filter((book) => book.status === 'Reading').length;
+  const finished = books.filter((book) => book.status === 'Finished').length;
+  const completion = total === 0 ? 0 : Math.round((finished / total) * 100);
+
+  totalBooks.textContent = total;
+  toReadBooks.textContent = toRead;
+  readingBooks.textContent = reading;
+  finishedBooks.textContent = finished;
+  completionPercentage.textContent = `${completion}%`;
+  completionProgress.setAttribute('aria-valuenow', String(completion));
+  completionProgressFill.style.width = `${completion}%`;
+}
+
 function renderBooks() {
+  renderDashboard();
+
   if (books.length === 0) {
     bookList.innerHTML = '<p class="empty-state">No books added yet. Your list will appear here.</p>';
     return;
