@@ -20,7 +20,18 @@ function loadBooks() {
     }
 
     const parsedBooks = JSON.parse(savedBooks);
-    return Array.isArray(parsedBooks) ? parsedBooks : [];
+    if (!Array.isArray(parsedBooks)) {
+      return [];
+    }
+
+    return parsedBooks.filter((book) => {
+      return (
+        book &&
+        typeof book.title === 'string' &&
+        typeof book.author === 'string' &&
+        STATUS_OPTIONS.includes(book.status)
+      );
+    });
   } catch {
     return [];
   }
