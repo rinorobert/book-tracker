@@ -167,8 +167,9 @@ button:hover {
   color: #667085;
 }
 
-.status-label {
+.status-control {
   flex: 0 0 auto;
+  width: auto;
   padding: 0.25rem 0.55rem;
   border-radius: 999px;
   color: #1e3a8a;

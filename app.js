@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'book-tracker-books';
+const STATUS_OPTIONS = ['To read', 'Reading', 'Finished'];
 const books = loadBooks();
 
 const bookForm = document.querySelector('#book-form');
@@ -79,12 +80,26 @@ function renderBooks() {
     const details = document.createElement('div');
     const title = document.createElement('h3');
     const author = document.createElement('p');
-    const status = document.createElement('span');
+    const status = document.createElement('select');
 
     title.textContent = book.title;
     author.textContent = `by ${book.author}`;
-    status.className = 'status-label';
-    status.textContent = book.status;
+    status.className = 'status-control';
+    status.setAttribute('aria-label', `Change status for ${book.title}`);
+
+    STATUS_OPTIONS.forEach((statusOption) => {
+      const option = document.createElement('option');
+      option.value = statusOption;
+      option.textContent = statusOption;
+      option.selected = statusOption === book.status;
+      status.append(option);
+    });
+
+    status.addEventListener('change', () => {
+      book.status = status.value;
+      saveBooks();
+      renderBooks();
+    });
 
     details.append(title, author);
     card.append(details, status);
