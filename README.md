@@ -2,6 +2,8 @@
 
 Book Tracker is a small, dependency-free web app for recording books you want to read, are currently reading, or have finished.
 
+**Live Demo:** [Open Book Tracker](https://rinorobert.github.io/book-tracker/)
+
 ## Features
 
 - Add books with a title, author, and reading status.
