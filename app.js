@@ -9,6 +9,8 @@ const statusInput = document.querySelector('#status');
 const titleError = document.querySelector('#title-error');
 const authorError = document.querySelector('#author-error');
 const searchInput = document.querySelector('#search');
+const statusFilter = document.querySelector('#status-filter');
+const sortOrder = document.querySelector('#sort-order');
 const bookList = document.querySelector('#book-list');
 const totalBooks = document.querySelector('#total-books');
 const toReadBooks = document.querySelector('#to-read-books');
@@ -86,6 +88,32 @@ function renderDashboard() {
   completionProgressFill.style.width = `${completion}%`;
 }
 
+function getVisibleBooks() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const filteredBooks = books.filter((book) => {
+    const matchesSearch =
+      book.title.toLowerCase().includes(searchTerm) ||
+      book.author.toLowerCase().includes(searchTerm);
+    const matchesStatus = statusFilter.value === 'all' || book.status === statusFilter.value;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  if (sortOrder.value === 'title') {
+    return filteredBooks.sort((firstBook, secondBook) => {
+      return firstBook.title.localeCompare(secondBook.title, undefined, { sensitivity: 'base' });
+    });
+  }
+
+  if (sortOrder.value === 'author') {
+    return filteredBooks.sort((firstBook, secondBook) => {
+      return firstBook.author.localeCompare(secondBook.author, undefined, { sensitivity: 'base' });
+    });
+  }
+
+  return filteredBooks;
+}
+
 function renderBooks() {
   renderDashboard();
 
@@ -94,18 +122,12 @@ function renderBooks() {
     return;
   }
 
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  const visibleBooks = books.filter((book) => {
-    return (
-      book.title.toLowerCase().includes(searchTerm) ||
-      book.author.toLowerCase().includes(searchTerm)
-    );
-  });
+  const visibleBooks = getVisibleBooks();
 
   bookList.innerHTML = '';
 
   if (visibleBooks.length === 0) {
-    bookList.innerHTML = '<p class="empty-state">No books match your search.</p>';
+    bookList.innerHTML = '<p class="empty-state">No books match your search or filter.</p>';
     return;
   }
 
@@ -168,5 +190,7 @@ bookForm.addEventListener('submit', (event) => {
 titleInput.addEventListener('input', () => validateRequiredField(titleInput, titleError, 'Title'));
 authorInput.addEventListener('input', () => validateRequiredField(authorInput, authorError, 'Author'));
 searchInput.addEventListener('input', renderBooks);
+statusFilter.addEventListener('change', renderBooks);
+sortOrder.addEventListener('change', renderBooks);
 
 renderBooks();

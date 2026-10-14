@@ -67,3 +67,11 @@ No user-reported manual browser test results are recorded in this conversation. 
 **Purpose:** Add a compact, derived dashboard above the book list without changing the stored book data or existing tracker features.
 
 **Outcome:** The dashboard was implemented from the in-memory collection; its displayed counts and completion value are not stored in `localStorage`. `node --check app.js` and `git diff --check` were run without errors. Browser testing has not been reported.
+
+## 8. Filtering and sorting
+
+**Actual prompt text:** “The Reading Dashboard has been implemented and committed. Now add the next feature incrementally: **filtering and sorting the book list**.” The prompt required status filters, non-mutating newest/title/author sorting, combined search/filter/sort behavior, unchanged full-collection dashboard statistics, responsive controls, preserved persistence and validation, an appended prompt record, static checks, a diff review, and no automatic commit, push, or deployment.
+
+**Purpose:** Add composable controls for narrowing and ordering the displayed book list without changing stored collection order.
+
+**Outcome:** Status filter and sort controls were implemented as display-only controls, preserving the stored collection order for Newest first. `node --check app.js` and `git diff --check` were run without errors. Browser testing has not been reported.
