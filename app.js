@@ -1,4 +1,5 @@
-const books = [];
+const STORAGE_KEY = 'book-tracker-books';
+const books = loadBooks();
 
 const bookForm = document.querySelector('#book-form');
 const titleInput = document.querySelector('#title');
@@ -7,6 +8,29 @@ const statusInput = document.querySelector('#status');
 const titleError = document.querySelector('#title-error');
 const authorError = document.querySelector('#author-error');
 const bookList = document.querySelector('#book-list');
+
+function loadBooks() {
+  try {
+    const savedBooks = localStorage.getItem(STORAGE_KEY);
+
+    if (!savedBooks) {
+      return [];
+    }
+
+    const parsedBooks = JSON.parse(savedBooks);
+    return Array.isArray(parsedBooks) ? parsedBooks : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveBooks() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+  } catch {
+    // Keep the current in-memory list usable if storage is unavailable.
+  }
+}
 
 function setFieldError(input, errorElement, message) {
   errorElement.textContent = message;
@@ -70,6 +94,7 @@ bookForm.addEventListener('submit', (event) => {
     status: statusInput.value,
   });
 
+  saveBooks();
   bookForm.reset();
   renderBooks();
   titleInput.focus();
@@ -77,3 +102,5 @@ bookForm.addEventListener('submit', (event) => {
 
 titleInput.addEventListener('input', () => validateRequiredField(titleInput, titleError, 'Title'));
 authorInput.addEventListener('input', () => validateRequiredField(authorInput, authorError, 'Author'));
+
+renderBooks();
