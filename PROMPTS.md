@@ -56,7 +56,7 @@ The initial planning response proposed `styles.css` and `script.js` instead of t
 
 This was a planning/documentation mistake, not an application runtime bug.
 
-## Reported manual test results
+## Manual browser testing status
 
 No user-reported manual browser test results are recorded in this conversation. The static checks listed above do not establish browser behavior.
 
