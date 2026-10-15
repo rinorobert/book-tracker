@@ -24,6 +24,10 @@ Clone or download this repository, then open `index.html` in a modern web browse
 
 For a local development server, you may also use an editor extension such as Live Server, but it is not required.
 
+## Data Storage
+
+Books are stored in the browser's `localStorage`, so they remain available after refreshing the page in the same browser. Data is browser-specific and is not synchronized across devices.
+
 ## GitHub Pages deployment
 
 1. Push this repository to GitHub.
